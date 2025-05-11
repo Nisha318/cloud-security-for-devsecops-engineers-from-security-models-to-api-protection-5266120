@@ -1,5 +1,5 @@
-# COURSENAME
-This is the repository for the LinkedIn Learning course `course-name`. The full course is available from [LinkedIn Learning][lil-course-url].
+# Cloud Security for DevSecOps Engineers: From Security Models to API Protection
+This is the repository for the LinkedIn Learning course `Cloud Security for DevSecOps Engineers: From Security Models to API Protection`. The full course is available from [LinkedIn Learning][lil-course-url].
 
 ![course-name-alt-text][lil-thumbnail-url] 
 
