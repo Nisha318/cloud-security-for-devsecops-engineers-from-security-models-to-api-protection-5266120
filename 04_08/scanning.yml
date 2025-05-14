@@ -13,17 +13,13 @@ jobs:
     steps:
       # Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Run Trivy GitHub Action to scan the 04_05 directory
       - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@v0.11.0
+        uses: aquasecurity/trivy-action@0.30.0
         with:
           scan-type: config
           path: ./04_05
-
-      # Upload SARIF results to GitHub Security tab
-      - name: Upload Trivy results to Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: trivy-results.sarif
+          exit-code: '1'
+          severity: 'CRITICAL,HIGH'
