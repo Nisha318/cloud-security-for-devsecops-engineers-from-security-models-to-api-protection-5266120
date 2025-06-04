@@ -65,10 +65,12 @@ The results will be written to results.html. You can open the file directly in y
 
 ![Results](./docs/images/trivy_results.png)
 
-## Instructor
+## Instructor Information
 
 [Damien Burks]
+
 Cloud DevSecOps Engineer & Founder of DevSec Blueprint
+
 Check out my other courses on [LinkedIn Learning](0)
 
 <!-- README Links -->
