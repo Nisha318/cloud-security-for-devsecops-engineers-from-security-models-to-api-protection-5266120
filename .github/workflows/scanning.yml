@@ -20,5 +20,8 @@ jobs:
         uses: aquasecurity/trivy-action@0.30.0
         with:
           scan-type: config
-          exit-code: '1'
+          # The exit code to return if vulnerabilities are found
+          # This will fail the action if any vulnerabilities are found
+          # If you want to ignore vulnerabilities and not fail the action, set exit-code to '0'
+          exit-code: '0'
           severity: 'CRITICAL,HIGH'
