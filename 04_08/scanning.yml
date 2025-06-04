@@ -20,6 +20,5 @@ jobs:
         uses: aquasecurity/trivy-action@0.30.0
         with:
           scan-type: config
-          path: ./04_05
           exit-code: '1'
           severity: 'CRITICAL,HIGH'

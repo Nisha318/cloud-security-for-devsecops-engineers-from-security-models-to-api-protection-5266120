@@ -10,9 +10,7 @@ _See the readme file in the main branch for updated instructions and information
 
 ## Instructions
 
-TBD.
-
-## Installation and Configuration
+## Setup and Configuration
 
 1. Star this repository so that you don't forget it.
 1. Download and Install VS Code (highly recommended).
@@ -21,6 +19,15 @@ TBD.
    - Dev Containers
 1. Fork over this repository into your own GitHub account.
 1. Create a GitHub Workspace using the VS Code Extension for your forked repository.
+
+1. Log into your codespace account, and open the Terminal. Run the following commands in the Terminal below:
+
+```bash
+$ sudo -i
+$ apt update
+$ wget https://github.com/aquasecurity/trivy/releases/download/v0.57.1/trivy_0.57.1_Linux-64bit.deb
+$ sudo dpkg -i trivy_0.57.1_Linux-64bit.deb
+```
 
 ## Instructor
 
