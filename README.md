@@ -26,7 +26,7 @@ exit
 
 This will download and install version `0.57.1` of Trivy in your workspace.
 
-### 4. Add the HTML Report Template
+### 2. Add the HTML Report Template
 
 To output Trivy results in HTML format, download the HTML template provided by the Trivy project:
 
