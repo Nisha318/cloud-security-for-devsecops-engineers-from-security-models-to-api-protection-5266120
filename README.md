@@ -19,12 +19,12 @@ Once your GitHub Workspace is running, open the terminal in Visual Studio Code a
 ```bash
 sudo -i
 apt update
-wget https://github.com/aquasecurity/trivy/releases/download/v0.57.1/trivy_0.57.1_Linux-64bit.deb
-dpkg -i trivy_0.57.1_Linux-64bit.deb
+wget https://github.com/aquasecurity/trivy/releases/download/v0.64.1/trivy_0.64.1_Linux-64bit.deb
+dpkg -i trivy_0.64.1_Linux-64bit.deb
 exit
 ```
 
-This will download and install version `0.57.1` of Trivy in your workspace.
+This will download and install version `0.64.1` of Trivy in your workspace.
 
 ### 2. Add the HTML Report Template
 
