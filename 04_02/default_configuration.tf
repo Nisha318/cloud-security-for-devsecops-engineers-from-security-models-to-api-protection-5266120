@@ -8,28 +8,12 @@ resource "aws_lambda_function" "default_configuration" {
   filename      = "function.zip"
 }
 
-resource "aws_lambda_function" "default_configuration_hardened" {
-  function_name = "default-configuration-lambda"
-  role          = aws_iam_role.lambda_exec.arn
-  runtime       = "python3.12"
-  handler       = "index.handler"
-  filename      = "function.zip"
-
-  kms_key_arn = null # No KMS key specified, so no encryption
-
-  environment {
-    variables = {
-      TEST = "ENV_VAR"
-    }
-  }
-}
-
 # This resource only allows EventBridge to invoke the Lambda function.
 # It does not allow any other services or principals to invoke it.
 resource "aws_lambda_permission" "allow_eventbridge_only" {
   statement_id  = "AllowExecutionFromEventBridgeOnly"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.default_configuration_hardened.function_name
+  function_name = aws_lambda_function.default_configuration.function_name
   principal     = "events.amazonaws.com"
   source_arn    = "arn:aws:events:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:rule/secure-event-rule"
 }
