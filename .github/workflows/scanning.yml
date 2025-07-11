@@ -1,3 +1,5 @@
+# This will be the GitHub Action that will scan our
+# infrastructure as code files with Trivy.
 name: Trivy Scan
 
 on:
@@ -9,19 +11,13 @@ on:
 jobs:
   trivy-scan:
     runs-on: ubuntu-latest
-
     steps:
-      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Run Trivy GitHub Action to scan the 04_05 directory
-      - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@0.30.0
+      - name: Run Trivy Scan
+        uses: aquasecurity/trivy-action@0.32.0
         with:
           scan-type: config
-          # The exit code to return if vulnerabilities are found
-          # This will fail the action if any vulnerabilities are found
-          # If you want to ignore vulnerabilities and not fail the action, set exit-code to '0'
-          exit-code: '0'
-          severity: 'CRITICAL,HIGH'
+          exit-code: "1"
+          severity: "CRITICAL,HIGH"

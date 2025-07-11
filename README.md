@@ -40,7 +40,7 @@ $ wget https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tp
 After installation, you can begin scanning a configuration directory which contains the `main.tf` file by running the following command below:
 
 ```bash
-$ trivy config --format template --template "@contrib/html.tpl" -o results.html 04_05/
+trivy config --format template --template @contrib/html.tpl -o results.html 04_06/
 ```
 
 The results will be written to results.html. You can open the file directly in your browser to review the findings, as shown below:

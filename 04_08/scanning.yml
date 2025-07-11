@@ -15,7 +15,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Run Trivy GitHub Action to scan the 04_05 directory
+      # Run Trivy GitHub Action to scan all of the directories for IaC files
       - name: Run Trivy scan
         uses: aquasecurity/trivy-action@0.30.0
         with:

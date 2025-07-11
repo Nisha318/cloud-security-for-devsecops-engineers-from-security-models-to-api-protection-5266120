@@ -4,7 +4,8 @@ provider "aws" {
   region = "us-west-2"
 }
 
-# This S3 bucket is configured to allow public read access, which can lead to data exposure.
+# This S3 bucket is configured to allow public read access, 
+# which can lead to data exposure.
 resource "aws_s3_bucket" "insecure_bucket" {
   bucket = "insecure-public-bucket-example"
   acl    = "public-read"
@@ -46,7 +47,8 @@ EOF
 
 # This IAM role is attached to a Lambda function and has AdministratorAccess,
 # which grants it full access to all AWS services and resources.
-# This is a significant security risk as it allows the Lambda function to perform any action in the AWS account.
+# This is a significant security risk as it allows the Lambda function to 
+# perform any action in the AWS account.
 resource "aws_iam_role" "lambda_vulnerable_role" {
   name = "lambda-vulnerable-role"
 
