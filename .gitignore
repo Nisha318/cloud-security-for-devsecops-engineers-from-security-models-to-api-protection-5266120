@@ -6,6 +6,7 @@ npm-debug.log
 bin/**
 *.html
 contrib
+trivy_**.deb
 
 # Local .terraform directories
 .terraform/
