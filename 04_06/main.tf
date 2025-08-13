@@ -1,91 +1,78 @@
-# This Terraform configuration creates resources that are intentionally insecure
-# for demonstration purposes. These resources should not be used in production.
-provider "aws" {
-  region = "us-west-2"
+resource "aws_kms_key" "s3_bucket" {
+  description             = "KMS key for S3 bucket encryption"
+  deletion_window_in_days = 10
+  enable_key_rotation     = true
 }
 
-# This S3 bucket is configured to allow public read access, 
-# which can lead to data exposure.
-resource "aws_s3_bucket" "insecure_bucket" {
-  bucket = "insecure-public-bucket-example"
-  acl    = "public-read"
+resource "aws_s3_bucket" "secure_bucket" {
+  bucket        = "secure-bucket-${random_id.bucket_id.hex}"
+  force_destroy = false
 
   tags = {
-    Name        = "InsecureBucket"
-    Environment = "Test"
+    Name        = "secure-bucket"
+    Environment = "production"
   }
 }
 
-# This KMS Key has overly permissive policies that allow any AWS account to use it.
-# This is a security risk as it allows unauthorized access to encrypted data.
-resource "aws_kms_key" "vulnerable_key" {
-  description             = "Vulnerable KMS key with wide permissions"
-  deletion_window_in_days = 7
-  policy                  = <<EOF
-{
-    "Version": "2012-10-17",
-    "Id": "key-default-1",
-    "Statement": [
-        {
-            "Sid": "EnableAllPermissions",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "*"
-            },
-            "Action": "kms:*",
-            "Resource": "*"
-        }
-    ]
+resource "random_id" "bucket_id" {
+  byte_length = 4
 }
-EOF
 
-  tags = {
-    Name        = "VulnerableKMSKey"
-    Environment = "Test"
+resource "aws_s3_bucket_versioning" "versioning" {
+  bucket = aws_s3_bucket.secure_bucket.id
+
+  versioning_configuration {
+    status = "Enabled"
   }
 }
 
-# This IAM role is attached to a Lambda function and has AdministratorAccess,
-# which grants it full access to all AWS services and resources.
-# This is a significant security risk as it allows the Lambda function to 
-# perform any action in the AWS account.
-resource "aws_iam_role" "lambda_vulnerable_role" {
-  name = "lambda-vulnerable-role"
+resource "aws_s3_bucket_server_side_encryption_configuration" "encryption" {
+  bucket = aws_s3_bucket.secure_bucket.id
 
-  assume_role_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "lambda.amazonaws.com"
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
-}
-EOF
-
-  tags = {
-    Name        = "LambdaVulnerableRole"
-    Environment = "Test"
-  }
-}
-resource "aws_iam_role_policy" "lambda_vulnerable_inline_policy" {
-  name = "lambda-vulnerable-inline-policy"
-  role = aws_iam_role.lambda_vulnerable_role.id
-
-  policy = <<EOF
-    {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Action": "*",
-                "Resource": "*"
-            }
-        ]
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+      kms_master_key_id = aws_kms_key.s3_bucket.arn
     }
-    EOF
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "public_access" {
+  bucket = aws_s3_bucket.secure_bucket.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_logging" "logging" {
+  bucket        = aws_s3_bucket.secure_bucket.id
+  target_bucket = aws_s3_bucket.secure_bucket.id
+  target_prefix = "log/"
+}
+
+resource "aws_s3_bucket_policy" "deny_insecure_transport" {
+  bucket = aws_s3_bucket.secure_bucket.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid       = "DenyInsecureTransport"
+        Effect    = "Deny"
+        Principal = "*"
+        Action    = "s3:*"
+        Resource = [
+          aws_s3_bucket.secure_bucket.arn,
+          "${aws_s3_bucket.secure_bucket.arn}/*"
+        ]
+        Condition = {
+          Bool = {
+            "aws:SecureTransport" = "false"
+          }
+        }
+      }
+    ]
+  })
 }
