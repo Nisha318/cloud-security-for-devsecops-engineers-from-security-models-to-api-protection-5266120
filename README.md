@@ -6,6 +6,10 @@ This is the repository for the LinkedIn Learning course `Cloud Security for DevS
 
 This repository will contain the entire codebase and instructions for running Trivy scans within the CodeSpaces container.
 
+## Course Description
+
+<p>Designed for new and early-career DevSecOps engineers, this course introduces cloud security through a DevSecOps lens. Get started by learning the fundamentals of cloud computing, service models, and the shared responsibility model. Explore the importance of key security services and control types, such as identity and access management (IAM), encryption, logging, and network segmentation, as well as API security fundamentals in cloud-native environments. Along the way, instructor Damien Burks dives into the essentials of infrastructure as code (IaC), showing you how to identify common risks, enforce compliance with policy as code, and automate security checks at scale using tools like Trivy. By the end of this course, you’ll be prepared to effectively apply key DevSecOps principles and concepts within the cloud security space.</p><p>This course is integrated with GitHub Codespaces, an instant cloud development environment that offers all the functionality of your favorite IDE without the need for any local machine setup. With GitHub Codespaces, you can get hands-on practice from any machine, at any time—all while using a tool that you’ll likely encounter in the workplace. Check out the “Using GitHub Codespaces with this course” video to learn how to get started.</p>
+
 ## Setup and Configuration
 
 After logging into your environment within GitHub Codespaces, you'll want to ensure that you follow the commands in the sections below.
@@ -55,6 +59,6 @@ Check out my other courses on [LinkedIn Learning](0)
 <!-- README Links -->
 
 [0]: # "Replace these placeholder URLs with actual course URLs"
-[lil-course-url]: https://www.linkedin.com/learning/
-[lil-thumbnail-url]: https://media.licdn.com/dms/image/v2/D4E0DAQG0eDHsyOSqTA/learning-public-crop_675_1200/B4EZVdqqdwHUAY-/0/1741033220778?e=2147483647&v=beta&t=FxUDo6FA8W8CiFROwqfZKL_mzQhYx9loYLfjN-LNjgA
+[lil-course-url]: https://www.linkedin.com/learning/cloud-security-for-devsecops-engineers-from-security-models-to-api-protection
+[lil-thumbnail-url]: https://media.licdn.com/dms/image/v2/D4E0DAQHQo03dJr-HOw/learning-public-crop_675_1200/B4EZmhfhRnHgAc-/0/1759351018912?e=2147483647&v=beta&t=TudLGEWO4r0WQ_N4untrst_DyLy7IwswBMt66XJjL5Q
 [Damien Burks]: https://www.linkedin.com/in/damienjburks/
